@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '/app/models/menu_item.dart';
+import '/app/data/models/menu_item.dart';
 
 class CardMenu extends StatelessWidget {
   const CardMenu({super.key, required this.menuItem});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'card_menu.dart';
-import '../../../app/data/models/menu_item.dart';
+import '../../../data/models/menu_item.dart';
 
 class MenuSection extends StatelessWidget {
   const MenuSection({super.key});

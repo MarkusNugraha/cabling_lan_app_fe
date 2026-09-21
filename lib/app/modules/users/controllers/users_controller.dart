@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 
-import '../../../app/data/models/user.dart';
-import '../../../app/data/providers/user_provider.dart';
+import '../../../data/models/user.dart';
+import '../../../data/providers/user_provider.dart';
 
-class UserController extends GetxController {
+class UsersController extends GetxController {
   var users = List<User>.empty().obs;
 
   void snackBarError(String msg) {

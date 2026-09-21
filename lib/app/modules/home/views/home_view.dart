@@ -5,11 +5,11 @@ import 'package:get/get.dart';
 import '../controllers/home_controller.dart';
 import '../widgets/menu_section.dart';
 import '../widgets/profile_section.dart';
-import '../../../modules/users/controllers/user_controller.dart';
+import '../../users/controllers/users_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   HomeView({super.key});
-  final usrCtrller = Get.find<UserController>();
+  final usrCtrller = Get.find<UsersController>();
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +21,8 @@ class HomeView extends GetView<HomeController> {
           children: [
             ProfileSection(),
             SizedBox(height: 50),
+            MenuSection(),
+
             Expanded(
               child: Obx(
                 () => usrCtrller.users.isEmpty
@@ -56,7 +58,6 @@ class HomeView extends GetView<HomeController> {
                       ),
               ),
             ),
-            // MenuSection(),
             IconButton(
               icon: Icon(Icons.refresh),
               onPressed: () {

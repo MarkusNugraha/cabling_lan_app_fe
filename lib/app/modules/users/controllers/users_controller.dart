@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/user.dart';
@@ -5,6 +6,23 @@ import '../../../data/providers/user_provider.dart';
 
 class UsersController extends GetxController {
   var users = List<User>.empty().obs;
+
+  final searchController = TextEditingController();
+  final isSearching = false.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+
+    getAllUsers();
+    searchController.addListener(() {
+      isSearching.value = searchController.text.isNotEmpty;
+    });
+  }
+
+  void clearSearch() {
+    searchController.clear();
+  }
 
   void snackBarError(String msg) {
     Get.snackbar('Error', msg, duration: Duration(seconds: 2));
@@ -27,5 +45,11 @@ class UsersController extends GetxController {
         ),
       );
     });
+  }
+
+  @override
+  void onClose() {
+    searchController.dispose();
+    super.onClose();
   }
 }

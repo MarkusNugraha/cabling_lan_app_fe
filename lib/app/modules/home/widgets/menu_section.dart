@@ -19,7 +19,8 @@ class MenuSection extends StatelessWidget {
 
           const SizedBox(height: 5),
 
-          Expanded(
+          SizedBox(
+            height: 100,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),

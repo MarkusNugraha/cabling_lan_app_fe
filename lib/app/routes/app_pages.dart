@@ -4,6 +4,8 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/users/bindings/users_binding.dart';
 import '../modules/users/views/users_view.dart';
+import '../modules/users/views/view_edit_users_view.dart';
+import '../modules/users/bindings/users_add_edit_binding.dart';
 
 part 'app_routes.dart';
 
@@ -18,6 +20,11 @@ class AppPages {
       name: _Paths.USERS,
       page: () => UsersView(),
       binding: UsersBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_EDIT_USERS,
+      page: () => ViewEditUsersView(),
+      binding: UsersAddEditBinding(),
     ),
   ];
 }

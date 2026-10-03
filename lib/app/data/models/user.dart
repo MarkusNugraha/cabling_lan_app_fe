@@ -1,4 +1,5 @@
 class User {
+  int id;
   String nik;
   String location;
   String username;
@@ -7,6 +8,7 @@ class User {
   bool isActive;
 
   User({
+    required this.id,
     required this.nik,
     required this.location,
     required this.username,

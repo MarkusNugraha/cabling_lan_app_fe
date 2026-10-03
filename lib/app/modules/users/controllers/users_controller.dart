@@ -24,19 +24,12 @@ class UsersController extends GetxController {
     searchController.clear();
   }
 
-  void snackBarError(String msg) {
-    Get.snackbar('Error', msg, duration: Duration(seconds: 2));
-  }
-
-  // User findUserById(String id) {
-  //   return users.firstWhere((element) => element.id == id);
-  // }
-
   void getAllUsers() {
     UserProvider().getAllUsers().then((value) {
       users.value = List.generate(
         value.body['data'].length,
         (index) => User(
+          id: value.body['data'][index]['id'],
           nik: value.body['data'][index]['nik'],
           location: value.body['data'][index]['location'],
           username: value.body['data'][index]['username'],

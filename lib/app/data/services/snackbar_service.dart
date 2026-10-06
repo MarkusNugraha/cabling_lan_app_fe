@@ -23,6 +23,12 @@ class SnackbarService {
   }
 
   static void info(String message) {
-    Get.snackbar('Info', message, duration: const Duration(seconds: 2));
+    Get.snackbar(
+      'Info',
+      message,
+      duration: const Duration(seconds: 2),
+      backgroundColor: Colors.blue[400],
+      colorText: Colors.white,
+    );
   }
 }

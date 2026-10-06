@@ -11,9 +11,11 @@ class ViewEditUsersView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          addEditUsersController.pageTitle,
-          style: TextStyle(fontWeight: FontWeight.bold),
+        title: Obx(
+          () => Text(
+            addEditUsersController.pageTitle,
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
         ),
         centerTitle: true,
       ),
@@ -115,6 +117,54 @@ class ViewEditUsersView extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
+              if (addEditUsersController.isView)
+                Padding(
+                  padding: const EdgeInsets.only(left: 5),
+                  child: const Text(
+                    'Is Active',
+                    style: TextStyle(fontSize: 15),
+                  ),
+                ),
+              if (addEditUsersController.isView) const SizedBox(height: 3),
+              if (addEditUsersController.isView)
+                Obx(
+                  () => Switch(
+                    value: addEditUsersController.isActive.value,
+                    onChanged: addEditUsersController.isReadOnly
+                        ? null
+                        : (value) {
+                            addEditUsersController.isActive.value = value;
+                          },
+                  ),
+                ),
+              if (addEditUsersController.isAdd)
+                Padding(
+                  padding: const EdgeInsets.only(left: 5),
+                  child: const Text('Password', style: TextStyle(fontSize: 15)),
+                ),
+              if (addEditUsersController.isAdd) const SizedBox(height: 3),
+              if (addEditUsersController.isAdd)
+                Obx(
+                  () => TextField(
+                    controller: addEditUsersController.passwordController,
+                    enabled: !addEditUsersController.isReadOnly,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 15,
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(width: 2),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    style: const TextStyle(fontSize: 15),
+                  ),
+                ),
+              const SizedBox(height: 20),
               Obx(() {
                 if (addEditUsersController.isView) {
                   return ElevatedButton(
@@ -123,30 +173,24 @@ class ViewEditUsersView extends StatelessWidget {
                     },
                     child: const Text('Edit'),
                   );
+                } else if (addEditUsersController.isEdit) {
+                  return ElevatedButton(
+                    onPressed: () {
+                      addEditUsersController.updateUser();
+                    },
+                    child: const Text('Save'),
+                  );
+                } else if (addEditUsersController.isAdd) {
+                  return ElevatedButton(
+                    onPressed: () {
+                      addEditUsersController.addUser();
+                    },
+                    child: const Text('Submit'),
+                  );
+                } else {
+                  return Container();
                 }
-
-                return ElevatedButton(
-                  onPressed: () {
-                    addEditUsersController.updateUser();
-                  },
-                  child: const Text('Save'),
-                );
               }),
-              // addEditUsersController.formMode == FormMode.EDIT
-              //     ? ElevatedButton(
-              //         child: const Text('Save'),
-              //         onPressed: () {
-              //           addEditUsersController.updateUser();
-              //         },
-              //       )
-              //     : addEditUsersController.formMode == FormMode.VIEW
-              //     ? ElevatedButton(
-              //         child: const Text('Edit'),
-              //         onPressed: () {
-              //           addEditUsersController.formMode = FormMode.EDIT;
-              //         },
-              //       )
-              //     : Container(),
             ],
           ),
         ),

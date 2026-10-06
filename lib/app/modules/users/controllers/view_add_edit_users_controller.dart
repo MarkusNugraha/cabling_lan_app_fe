@@ -5,12 +5,16 @@ import '../../../data/models/user.dart';
 import '../../../data/enums/form_mode.dart';
 import '../../../data/services/snackbar_service.dart';
 import '../../../data/providers/user_provider.dart';
+import '../../../../app/modules/users/controllers/users_controller.dart';
 
 class ViewAddEditUsersController extends GetxController {
+  final usersController = Get.find<UsersController>();
+
   late TextEditingController nikController;
   late TextEditingController locationController;
   late TextEditingController usernameController;
   late TextEditingController emailController;
+  late TextEditingController passwordController;
   late RxBool isActive = false.obs;
 
   final formMode = FormMode.VIEW.obs;
@@ -27,11 +31,29 @@ class ViewAddEditUsersController extends GetxController {
     locationController = TextEditingController();
     usernameController = TextEditingController();
     emailController = TextEditingController();
+    passwordController = TextEditingController();
 
+    if (isEdit || isView) findUserById(Get.arguments['userId'].toString());
     formMode.value = Get.arguments['formMode'];
-    findUserById(Get.arguments['userId'].toString());
 
     super.onInit();
+  }
+
+  String get pageTitle {
+    switch (formMode.value) {
+      case FormMode.ADD:
+        return 'Add User';
+      case FormMode.EDIT:
+        return 'Edit User';
+      case FormMode.VIEW:
+        return 'View User';
+    }
+  }
+
+  void enterEditMode() {
+    if (isView) {
+      formMode.value = FormMode.EDIT;
+    }
   }
 
   void findUserById(String id) {
@@ -64,6 +86,7 @@ class ViewAddEditUsersController extends GetxController {
     );
 
     if (response.isOk) {
+      usersController.getAllUsers();
       Get.back();
       SnackbarService.success("${response.body['message']}");
     } else {
@@ -75,20 +98,25 @@ class ViewAddEditUsersController extends GetxController {
     }
   }
 
-  String get pageTitle {
-    switch (formMode.value) {
-      case FormMode.ADD:
-        return 'Add User';
-      case FormMode.EDIT:
-        return 'Edit User';
-      case FormMode.VIEW:
-        return 'View User';
-    }
-  }
+  Future<void> addUser() async {
+    final response = await UserProvider().addUser(
+      nik: nikController.text,
+      location: locationController.text,
+      username: usernameController.text,
+      email: emailController.text,
+      password: passwordController.text,
+    );
 
-  void enterEditMode() {
-    if (isView) {
-      formMode.value = FormMode.EDIT;
+    if (response.isOk) {
+      usersController.getAllUsers();
+      Get.back();
+      SnackbarService.success("${response.body['message']}");
+    } else {
+      final message = response.body is Map
+          ? response.body['message'] ?? 'Failed to update user'
+          : 'Failed to update user';
+
+      SnackbarService.error(message);
     }
   }
 

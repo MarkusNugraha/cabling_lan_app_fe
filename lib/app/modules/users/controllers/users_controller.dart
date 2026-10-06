@@ -7,8 +7,14 @@ import '../../../data/providers/user_provider.dart';
 class UsersController extends GetxController {
   var users = List<User>.empty().obs;
 
-  final searchController = TextEditingController();
   final isSearching = false.obs;
+  final searchController = TextEditingController();
+
+  final isFilterOpen = false.obs;
+  // final sectionController = false.obs;
+  // final locationController = false.obs;
+  // final positionController = false.obs;
+  final isActiveController = false.obs;
 
   @override
   void onInit() {
@@ -22,6 +28,10 @@ class UsersController extends GetxController {
 
   void clearSearch() {
     searchController.clear();
+  }
+
+  void toggleFilter() {
+    isFilterOpen.value = !isFilterOpen.value;
   }
 
   void getAllUsers() {

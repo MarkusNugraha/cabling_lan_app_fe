@@ -2,19 +2,29 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/user.dart';
+import '../../../data/models/section.dart';
+import '../../../data/models/location.dart';
+import '../../../data/models/position.dart';
 import '../../../data/providers/user_provider.dart';
+import '../../../../app/modules/sections/controllers/sections_controller.dart';
 
 class UsersController extends GetxController {
+  final sectionsController = Get.find<SectionsController>();
+
   var users = List<User>.empty().obs;
 
   final isSearching = false.obs;
   final searchController = TextEditingController();
 
   final isFilterOpen = false.obs;
-  // final sectionController = false.obs;
-  // final locationController = false.obs;
-  // final positionController = false.obs;
-  final isActiveController = false.obs;
+  final selectedSectionId = RxnInt();
+  final selectedLocationId = RxnInt();
+  final selectedPositionId = RxnInt();
+
+  final sections = <Section>[].obs;
+  final locations = <Location>[].obs;
+  final positions = <Position>[].obs;
+  final isActive = true.obs;
 
   @override
   void onInit() {
@@ -35,19 +45,21 @@ class UsersController extends GetxController {
   }
 
   void getAllUsers() {
-    UserProvider().getAllUsers().then((value) {
-      users.value = List.generate(
-        value.body['data'].length,
-        (index) => User(
-          id: value.body['data'][index]['id'],
-          nik: value.body['data'][index]['nik'],
-          location: value.body['data'][index]['location'],
-          username: value.body['data'][index]['username'],
-          email: value.body['data'][index]['email'],
-          isActive: value.body['data'][index]['is_active'],
-        ),
-      );
-    });
+    UserProvider()
+        .getAllUsers(search: searchController.text, isActive: isActive.value)
+        .then((value) {
+          users.value = List.generate(
+            value.body['data'].length,
+            (index) => User(
+              id: value.body['data'][index]['id'],
+              nik: value.body['data'][index]['nik'],
+              location: value.body['data'][index]['location'],
+              username: value.body['data'][index]['username'],
+              email: value.body['data'][index]['email'],
+              isActive: value.body['data'][index]['is_active'],
+            ),
+          );
+        });
   }
 
   @override

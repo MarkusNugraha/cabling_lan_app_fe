@@ -40,7 +40,12 @@ class UsersView extends StatelessWidget {
                           contentPadding: const EdgeInsets.symmetric(
                             horizontal: 15,
                           ),
-                          prefixIcon: const Icon(Icons.search, size: 25),
+                          prefixIcon: IconButton(
+                            icon: Icon(Icons.search),
+                            onPressed: () {
+                              controller.getAllUsers();
+                            },
+                          ),
                           prefixIconConstraints: const BoxConstraints(
                             minWidth: 40,
                           ),
@@ -125,8 +130,110 @@ class UsersView extends StatelessWidget {
 
                     const SizedBox(height: 15),
 
-                    // Filter fields will go here
-                    const Text('Filter fields'),
+                    // SECTION
+                    Obx(
+                      () => DropdownButtonFormField<int>(
+                        initialValue: controller.selectedSectionId.value,
+                        decoration: InputDecoration(
+                          labelText: 'Section',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        items: controller.sectionsController.sections.map((
+                          section,
+                        ) {
+                          return DropdownMenuItem<int>(
+                            value: section.id,
+                            child: Text(section.name),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          controller.selectedSectionId.value = value;
+
+                          // Reset child filters
+                          controller.selectedLocationId.value = null;
+                          controller.selectedPositionId.value = null;
+
+                          // Load locations for selected section
+                          // controller.getLocationsBySection(value);
+                        },
+                      ),
+                    ),
+
+                    const SizedBox(height: 15),
+
+                    // LOCATION
+                    Obx(
+                      () => DropdownButtonFormField<int>(
+                        initialValue: controller.selectedLocationId.value,
+                        decoration: InputDecoration(
+                          labelText: 'Location',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        items: controller.locations.map((location) {
+                          return DropdownMenuItem<int>(
+                            value: location.id,
+                            child: Text(location.name),
+                          );
+                        }).toList(),
+                        onChanged: controller.selectedSectionId.value == null
+                            ? null
+                            : (value) {
+                                controller.selectedLocationId.value = value;
+
+                                // Reset position
+                                controller.selectedPositionId.value = null;
+
+                                // controller.sectionsController.getAllSections();
+                              },
+                      ),
+                    ),
+
+                    const SizedBox(height: 15),
+
+                    // POSITION
+                    Obx(
+                      () => DropdownButtonFormField<int>(
+                        initialValue: controller.selectedPositionId.value,
+                        decoration: InputDecoration(
+                          labelText: 'Position',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        items: controller.positions.map((position) {
+                          return DropdownMenuItem<int>(
+                            value: position.id,
+                            child: Text(position.name),
+                          );
+                        }).toList(),
+                        onChanged: controller.selectedLocationId.value == null
+                            ? null
+                            : (value) {
+                                controller.selectedPositionId.value = value;
+                              },
+                      ),
+                    ),
+
+                    const SizedBox(height: 15),
+
+                    // IS ACTIVE
+                    Obx(
+                      () => Row(
+                        children: [
+                          Checkbox(
+                            value: controller.isActive.value,
+                            onChanged: (value) {
+                              controller.isActive.value = value ?? false;
+                            },
+                          ),
+                          const Text('Is Active'),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),

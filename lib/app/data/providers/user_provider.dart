@@ -1,14 +1,39 @@
 import 'package:get/get_connect/connect.dart';
+import '../../../app/config/api_config.dart';
 
 class UserProvider extends GetConnect {
-  final url = "http://192.168.211.33:8000/api";
+  Future<Response> getAllUsers({
+    String? position,
+    bool? isActive,
+    String? search,
+  }) {
+    final params = <String, String>{};
 
-  Future<Response> getAllUsers() {
-    return get('$url/user');
+    if (position != null) {
+      params['position'] = position;
+    }
+
+    if (isActive != null) {
+      params['is_active'] = isActive ? '1' : '0';
+    }
+
+    if (search != null) {
+      params['search'] = search;
+    }
+
+    print(params);
+    return get(
+      '${ApiConfig.baseUrl}/user',
+      query: params,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    );
   }
 
   Future<Response> getUserById(String id) {
-    return get('$url/user/$id');
+    return get('${ApiConfig.baseUrl}/user/$id');
   }
 
   Future<Response> updateUser({
@@ -20,7 +45,7 @@ class UserProvider extends GetConnect {
     required bool isActive,
   }) {
     return put(
-      '$url/user/$id',
+      '${ApiConfig.baseUrl}/user/$id',
       {
         'nik': nik,
         'location': location,
@@ -43,7 +68,7 @@ class UserProvider extends GetConnect {
     required String password,
   }) {
     return post(
-      '$url/user',
+      '${ApiConfig.baseUrl}/user',
       {
         'nik': nik,
         'location': location,

@@ -7,9 +7,13 @@ import '../../../data/models/location.dart';
 import '../../../data/models/position.dart';
 import '../../../data/providers/user_provider.dart';
 import '../../../../app/modules/sections/controllers/sections_controller.dart';
+import '../../../../app/modules/locations/controllers/locations_controller.dart';
+import '../../../../app/modules/positions/controllers/positions_controller.dart';
 
 class UsersController extends GetxController {
   final sectionsController = Get.find<SectionsController>();
+  final locationsController = Get.find<LocationsController>();
+  final positionsController = Get.find<PositionsController>();
 
   var users = List<User>.empty().obs;
 
@@ -20,10 +24,6 @@ class UsersController extends GetxController {
   final selectedSectionId = RxnInt();
   final selectedLocationId = RxnInt();
   final selectedPositionId = RxnInt();
-
-  final sections = <Section>[].obs;
-  final locations = <Location>[].obs;
-  final positions = <Position>[].obs;
   final isActive = true.obs;
 
   @override
@@ -34,6 +34,8 @@ class UsersController extends GetxController {
     searchController.addListener(() {
       isSearching.value = searchController.text.isNotEmpty;
     });
+
+    sectionsController.getAllSections();
   }
 
   void clearSearch() {
@@ -44,9 +46,13 @@ class UsersController extends GetxController {
     isFilterOpen.value = !isFilterOpen.value;
   }
 
-  void getAllUsers() {
+  void getAllUsers({String? search, int? positionId, bool? isActive}) {
     UserProvider()
-        .getAllUsers(search: searchController.text, isActive: isActive.value)
+        .getAllUsers(
+          search: search,
+          position: positionId.toString(),
+          isActive: isActive,
+        )
         .then((value) {
           users.value = List.generate(
             value.body['data'].length,

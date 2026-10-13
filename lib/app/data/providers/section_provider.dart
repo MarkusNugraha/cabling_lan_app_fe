@@ -2,16 +2,24 @@ import 'package:get/get_connect/connect.dart';
 import '../../../app/config/api_config.dart';
 
 class SectionProvider extends GetConnect {
-  Future<Response> getAllSections({bool? isActive, String? search}) {
+  Future<Response> getAllSections({String? search, bool? isActive}) {
     final params = <String, String>{};
-
-    if (isActive != null) {
-      params['isActive'] = isActive.toString();
-    }
 
     if (search != null) {
       params['search'] = search;
     }
-    return get('${ApiConfig.baseUrl}/section', query: params);
+
+    if (isActive != null) {
+      params['is_active'] = isActive ? '1' : '0';
+    }
+
+    return get(
+      '${ApiConfig.baseUrl}/section',
+      query: params,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    );
   }
 }

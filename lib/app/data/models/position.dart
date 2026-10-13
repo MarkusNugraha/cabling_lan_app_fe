@@ -1,12 +1,12 @@
 class Position {
   int id;
-  int positionId;
+  int locationId;
   String name;
   bool isActive;
 
   Position({
     required this.id,
-    required this.positionId,
+    required this.locationId,
     required this.name,
     required this.isActive,
   });

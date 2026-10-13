@@ -5,15 +5,15 @@ import '../../../../app/data/providers/section_provider.dart';
 class SectionsController extends GetxController {
   var sections = List<Section>.empty().obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-
-    getAllSections();
-  }
-
-  void getAllSections() {
-    SectionProvider().getAllSections(isActive: true).then((value) {
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  //   getAllSections(isActive: true);
+  // }
+  void getAllSections({String? search, bool? isActive}) {
+    SectionProvider().getAllSections(isActive: isActive, search: search).then((
+      value,
+    ) {
       sections.value = List.generate(
         value.body['data'].length,
         (index) => Section(
@@ -23,5 +23,9 @@ class SectionsController extends GetxController {
         ),
       );
     });
+  }
+
+  void clearSections() {
+    sections.value = List.empty();
   }
 }

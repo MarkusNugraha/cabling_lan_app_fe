@@ -3,11 +3,15 @@ import '../../../app/config/api_config.dart';
 
 class UserProvider extends GetConnect {
   Future<Response> getAllUsers({
+    String? search,
     String? position,
     bool? isActive,
-    String? search,
   }) {
     final params = <String, String>{};
+
+    if (search != null) {
+      params['search'] = search;
+    }
 
     if (position != null) {
       params['position'] = position;
@@ -17,11 +21,7 @@ class UserProvider extends GetConnect {
       params['is_active'] = isActive ? '1' : '0';
     }
 
-    if (search != null) {
-      params['search'] = search;
-    }
-
-    print(params);
+    // print(params);
     return get(
       '${ApiConfig.baseUrl}/user',
       query: params,

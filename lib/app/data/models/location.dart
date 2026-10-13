@@ -1,12 +1,12 @@
 class Location {
   int id;
-  int locationId;
+  int sectionId;
   String name;
   bool isActive;
 
   Location({
     required this.id,
-    required this.locationId,
+    required this.sectionId,
     required this.name,
     required this.isActive,
   });

@@ -6,6 +6,7 @@ abstract class Routes {
   static const HOME = _Paths.HOME;
   static const CABLES = _Paths.CABLES;
   static const USERS = _Paths.USERS;
+  static const DEVICES = _Paths.DEVICES;
   static const ADD_EDIT_USERS = _Paths.ADD_EDIT_USERS;
   static const SECTIONS = _Paths.SECTIONS;
   static const LOCATIONS = _Paths.LOCATIONS;
@@ -17,6 +18,7 @@ abstract class _Paths {
   static const HOME = '/home';
   static const CABLES = '/cables';
   static const USERS = '/users';
+  static const DEVICES = '/devices';
   static const ADD_EDIT_USERS = '/add-edit-users';
   static const SECTIONS = '/sections';
   static const LOCATIONS = '/locations';

@@ -11,7 +11,7 @@ import '../modules/sections/views/sections_view.dart';
 import '../modules/users/bindings/users_add_edit_binding.dart';
 import '../modules/users/bindings/users_binding.dart';
 import '../modules/users/views/users_view.dart';
-import '../modules/users/views/view_edit_users_view.dart';
+import '../modules/users/views/view_add_edit_users_view.dart';
 
 part 'app_routes.dart';
 
@@ -29,7 +29,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.ADD_EDIT_USERS,
-      page: () => ViewEditUsersView(),
+      page: () => ViewAddEditUsersView(),
       binding: UsersAddEditBinding(),
     ),
     GetPage(

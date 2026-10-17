@@ -19,6 +19,11 @@ final List<MenuItem> menuItems = [
     route: Routes.CABLES,
   ),
   MenuItem(
+    name: 'Devices',
+    imagePath: 'assets/images/devices_icon.png',
+    route: Routes.DEVICES,
+  ),
+  MenuItem(
     name: 'Switches',
     imagePath: 'assets/images/switch_icon.png',
     route: Routes.USERS,

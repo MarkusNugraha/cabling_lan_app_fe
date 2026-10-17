@@ -65,6 +65,7 @@ flutter:
     # - images/a_dot_ham.jpeg
     - assets/images/user_icon.png
     - assets/images/lan_cable_icon.png
+    - assets/images/devices_icon.png
     - assets/images/switch_icon.png
     - assets/images/voip_icon.png
 

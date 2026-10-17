@@ -86,7 +86,7 @@ class ViewAddEditUsersController extends GetxController {
     );
 
     if (response.isOk) {
-      usersController.getAllUsers();
+      usersController.getAllUsers(isActive: true);
       Get.back();
       SnackbarService.success("${response.body['message']}");
     } else {

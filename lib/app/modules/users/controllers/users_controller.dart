@@ -2,9 +2,6 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/user.dart';
-import '../../../data/models/section.dart';
-import '../../../data/models/location.dart';
-import '../../../data/models/position.dart';
 import '../../../data/providers/user_provider.dart';
 import '../../../../app/modules/sections/controllers/sections_controller.dart';
 import '../../../../app/modules/locations/controllers/locations_controller.dart';
@@ -30,7 +27,7 @@ class UsersController extends GetxController {
   void onInit() {
     super.onInit();
 
-    getAllUsers();
+    getAllUsers(isActive: true);
     searchController.addListener(() {
       isSearching.value = searchController.text.isNotEmpty;
     });
@@ -44,6 +41,15 @@ class UsersController extends GetxController {
 
   void toggleFilter() {
     isFilterOpen.value = !isFilterOpen.value;
+  }
+
+  void clearFilter() {
+    selectedSectionId.value = null;
+    selectedLocationId.value = null;
+    selectedPositionId.value = null;
+    isActive.value = true;
+
+    clearSearch();
   }
 
   void getAllUsers({String? search, int? positionId, bool? isActive}) {

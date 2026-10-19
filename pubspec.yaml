@@ -63,11 +63,17 @@ flutter:
   assets:
     # - images/a_dot_burr.jpeg
     # - images/a_dot_ham.jpeg
+    - assets/images/hierarchy_icon.png
+    - assets/images/section_icon.png
+    - assets/images/sub_section_icon.png
+    - assets/images/location_icon.png
+    - assets/images/position_icon.png
     - assets/images/user_icon.png
-    - assets/images/lan_cable_icon.png
     - assets/images/devices_icon.png
+    - assets/images/computer_icon.png
     - assets/images/switch_icon.png
     - assets/images/voip_icon.png
+    - assets/images/lan_cable_icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

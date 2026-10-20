@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/computers/bindings/computers_binding.dart';
+import '../modules/computers/views/computers_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/locations/bindings/locations_binding.dart';
@@ -46,6 +48,11 @@ class AppPages {
       name: _Paths.POSITIONS,
       page: () => const PositionsView(),
       binding: PositionsBinding(),
+    ),
+    GetPage(
+      name: _Paths.COMPUTERS,
+      page: () => ComputersView(),
+      binding: ComputersBinding(),
     ),
   ];
 }

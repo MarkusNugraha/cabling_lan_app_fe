@@ -60,9 +60,9 @@ final List<MenuItem> menuItems = [
     route: Routes.DEVICES,
     children: [
       MenuItem(
-        name: 'Laptop / PC',
+        name: 'Computers',
         imagePath: 'assets/images/computer_icon.png',
-        route: Routes.DEVICES,
+        route: Routes.COMPUTERS,
       ),
       MenuItem(
         name: 'Switches',

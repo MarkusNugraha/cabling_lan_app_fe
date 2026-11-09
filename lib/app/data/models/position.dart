@@ -8,6 +8,6 @@ class Position {
     required this.id,
     required this.locationId,
     required this.name,
-    required this.isActive,
+    this.isActive = true,
   });
 }

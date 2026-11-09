@@ -17,6 +17,8 @@ class ViewAddEditUsersController extends GetxController {
   late TextEditingController passwordController;
   late RxBool isActive = false.obs;
 
+  final formKey = GlobalKey<FormState>();
+
   final formMode = FormMode.VIEW.obs;
   bool get isAdd => formMode.value == FormMode.ADD;
   bool get isEdit => formMode.value == FormMode.EDIT;
@@ -33,8 +35,14 @@ class ViewAddEditUsersController extends GetxController {
     emailController = TextEditingController();
     passwordController = TextEditingController();
 
-    if (isEdit || isView) findUserById(Get.arguments['userId'].toString());
-    formMode.value = Get.arguments['formMode'];
+    formMode.value = Get.arguments['formMode'] ?? FormMode.VIEW;
+    if (isEdit || isView) {
+      if (Get.arguments['id'] != null) {
+        findUserById(Get.arguments['id'].toString());
+      } else {
+        SnackbarService.error(' User ID is required for Edit/View mode.');
+      }
+    }
 
     super.onInit();
   }
@@ -76,8 +84,13 @@ class ViewAddEditUsersController extends GetxController {
   }
 
   Future<void> updateUser() async {
+    if (!formKey.currentState!.validate()) {
+      SnackbarService.error("Fill all required fields.");
+      return;
+    }
+
     final response = await UserProvider().updateUser(
-      id: Get.arguments['userId'].toString(),
+      id: Get.arguments['id'].toString(),
       nik: nikController.text,
       location: locationController.text,
       username: usernameController.text,
@@ -99,6 +112,10 @@ class ViewAddEditUsersController extends GetxController {
   }
 
   Future<void> addUser() async {
+    if (!formKey.currentState!.validate()) {
+      return;
+    }
+
     final response = await UserProvider().addUser(
       nik: nikController.text,
       location: locationController.text,

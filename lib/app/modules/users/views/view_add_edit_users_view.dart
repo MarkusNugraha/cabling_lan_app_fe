@@ -24,81 +24,89 @@ class ViewAddEditUsersView extends StatelessWidget {
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Obx(
-                () => UserFormTextField(
-                  label: 'NIK',
-                  controller: addEditUsersController.nikController,
-                  enabled: !addEditUsersController.isReadOnly,
-                ),
-              ),
-              Obx(
-                () => UserFormTextField(
-                  label: 'Location',
-                  controller: addEditUsersController.locationController,
-                  enabled: !addEditUsersController.isReadOnly,
-                ),
-              ),
-              Obx(
-                () => UserFormTextField(
-                  label: 'Username',
-                  controller: addEditUsersController.usernameController,
-                  enabled: !addEditUsersController.isReadOnly,
-                ),
-              ),
-              Obx(
-                () => UserFormTextField(
-                  label: 'Email',
-                  controller: addEditUsersController.emailController,
-                  enabled: !addEditUsersController.isReadOnly,
-                ),
-              ),
-              if (addEditUsersController.isView)
-                Obx(
-                  () => UserFormSwitchField(
-                    label: 'Is Active',
-                    value: addEditUsersController.isActive,
-                    enabled: !addEditUsersController.isReadOnly,
-                  ),
-                ),
-              if (addEditUsersController.isAdd)
+          child: Form(
+            key: addEditUsersController.formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
                 Obx(
                   () => UserFormTextField(
-                    label: 'Password',
-                    controller: addEditUsersController.passwordController,
-                    enabled: !addEditUsersController.isReadOnly,
-                    obscureText: true,
+                    label: 'NIK',
+                    controller: addEditUsersController.nikController,
+                    isEnabled: !addEditUsersController.isReadOnly,
+                    isMandatory: true,
                   ),
                 ),
-              Obx(() {
-                if (addEditUsersController.isView) {
-                  return ElevatedButton(
-                    onPressed: () {
-                      addEditUsersController.enterEditMode();
-                    },
-                    child: const Text('Edit'),
-                  );
-                } else if (addEditUsersController.isEdit) {
-                  return ElevatedButton(
-                    onPressed: () {
-                      addEditUsersController.updateUser();
-                    },
-                    child: const Text('Save'),
-                  );
-                } else if (addEditUsersController.isAdd) {
-                  return ElevatedButton(
-                    onPressed: () {
-                      addEditUsersController.addUser();
-                    },
-                    child: const Text('Submit'),
-                  );
-                } else {
-                  return Container();
-                }
-              }),
-            ],
+                Obx(
+                  () => UserFormTextField(
+                    label: 'Location',
+                    controller: addEditUsersController.locationController,
+                    isEnabled: !addEditUsersController.isReadOnly,
+                    isMandatory: true,
+                  ),
+                ),
+                Obx(
+                  () => UserFormTextField(
+                    label: 'Username',
+                    controller: addEditUsersController.usernameController,
+                    isEnabled: !addEditUsersController.isReadOnly,
+                    isMandatory: true,
+                  ),
+                ),
+                Obx(
+                  () => UserFormTextField(
+                    label: 'Email',
+                    controller: addEditUsersController.emailController,
+                    isEnabled: !addEditUsersController.isReadOnly,
+                    isMandatory: true,
+                  ),
+                ),
+                if (addEditUsersController.isView)
+                  Obx(
+                    () => UserFormSwitchField(
+                      label: 'Is Active',
+                      value: addEditUsersController.isActive,
+                      isEnabled: !addEditUsersController.isReadOnly,
+                    ),
+                  ),
+                if (addEditUsersController.isAdd)
+                  Obx(
+                    () => UserFormTextField(
+                      label: 'Password',
+                      controller: addEditUsersController.passwordController,
+                      isEnabled: !addEditUsersController.isReadOnly,
+                      obscureText: true,
+                      isMandatory: true,
+                    ),
+                  ),
+                Obx(() {
+                  if (addEditUsersController.isView) {
+                    return ElevatedButton(
+                      onPressed: () {
+                        addEditUsersController.enterEditMode();
+                      },
+                      child: const Text('Edit'),
+                    );
+                  } else if (addEditUsersController.isEdit) {
+                    return ElevatedButton(
+                      onPressed: () {
+                        addEditUsersController.updateUser();
+                      },
+                      child: const Text('Save'),
+                    );
+                  } else if (addEditUsersController.isAdd) {
+                    return ElevatedButton(
+                      onPressed: () {
+                        addEditUsersController.addUser();
+                      },
+                      child: const Text('Submit'),
+                    );
+                  } else {
+                    return Container();
+                  }
+                }),
+              ],
+            ),
           ),
         ),
       ),

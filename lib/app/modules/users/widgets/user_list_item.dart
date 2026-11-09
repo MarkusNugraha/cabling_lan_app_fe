@@ -17,7 +17,7 @@ class UserListItem extends StatelessWidget {
       onTap: () {
         Get.toNamed(
           Routes.ADD_EDIT_USERS,
-          arguments: {'formMode': FormMode.VIEW, 'userId': user.id},
+          arguments: {'formMode': FormMode.VIEW, 'id': user.id},
         );
       },
       child: Container(

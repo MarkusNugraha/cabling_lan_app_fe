@@ -8,6 +8,6 @@ class Location {
     required this.id,
     required this.sectionId,
     required this.name,
-    required this.isActive,
+    this.isActive = true,
   });
 }

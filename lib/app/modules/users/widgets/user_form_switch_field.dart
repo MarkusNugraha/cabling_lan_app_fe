@@ -4,13 +4,13 @@ import 'package:get/get.dart';
 class UserFormSwitchField extends StatelessWidget {
   final String label;
   final RxBool value;
-  final bool enabled;
+  final bool isEnabled;
 
   const UserFormSwitchField({
     super.key,
     required this.label,
     required this.value,
-    this.enabled = true,
+    this.isEnabled = true,
   });
 
   @override
@@ -26,7 +26,7 @@ class UserFormSwitchField extends StatelessWidget {
         Obx(
           () => Switch(
             value: value.value,
-            onChanged: enabled ? (newValue) => value.value = newValue : null,
+            onChanged: isEnabled ? (newValue) => value.value = newValue : null,
           ),
         ),
       ],

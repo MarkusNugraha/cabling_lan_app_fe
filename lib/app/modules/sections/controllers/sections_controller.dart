@@ -5,11 +5,6 @@ import '../../../../app/data/providers/section_provider.dart';
 class SectionsController extends GetxController {
   var sections = List<Section>.empty().obs;
 
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  //   getAllSections(isActive: true);
-  // }
   void getAllSections({String? search, bool? isActive}) {
     SectionProvider().getAllSections(isActive: isActive, search: search).then((
       value,

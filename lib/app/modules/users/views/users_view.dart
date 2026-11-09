@@ -114,6 +114,7 @@ class UsersView extends StatelessWidget {
           Obx(
             () => controller.isFilterOpen.value
                 ? Container(
+                    height: 200,
                     width: double.infinity,
                     margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
                     padding: const EdgeInsets.all(15),
@@ -122,205 +123,255 @@ class UsersView extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(color: AppColors.DJR),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Filter',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Filter',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
 
-                        const SizedBox(height: 15),
+                          const SizedBox(height: 15),
 
-                        // SECTION
-                        Obx(() {
-                          final sections =
-                              controller.sectionsController.sections;
+                          // SECTION
+                          Obx(() {
+                            final sections =
+                                controller.sectionsController.sections;
 
-                          final selectedId =
-                              sections.any(
-                                (section) =>
-                                    section.id ==
-                                    controller.selectedSectionId.value,
-                              )
-                              ? controller.selectedSectionId.value
-                              : null;
+                            final selectedId =
+                                sections.any(
+                                  (section) =>
+                                      section.id ==
+                                      controller.selectedSectionId.value,
+                                )
+                                ? controller.selectedSectionId.value
+                                : null;
 
-                          return DropdownButtonFormField<int>(
-                            key: ValueKey(
-                              'section-$selectedId-${sections.length}',
-                            ),
-                            initialValue: selectedId,
-                            decoration: InputDecoration(
-                              labelText: 'Section',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                            items: sections.map((section) {
-                              return DropdownMenuItem<int>(
-                                value: section.id,
-                                child: Text(section.name),
-                              );
-                            }).toList(),
-                            onChanged: (value) {
-                              controller.selectedSectionId.value = value;
-
-                              // Reset dependent selections
-                              controller.selectedLocationId.value = null;
-                              controller.selectedPositionId.value = null;
-
-                              // Clear dependent options
-                              controller.locationsController.clearLocations();
-                              controller.positionsController.clearPositions();
-
-                              if (value != null) {
-                                controller.locationsController.getAllLocations(
-                                  sectionId: value,
-                                );
-                              }
-                            },
-                          );
-                        }),
-
-                        const SizedBox(height: 15),
-
-                        // LOCATION
-                        Obx(() {
-                          final locations =
-                              controller.locationsController.locations;
-
-                          final selectedId =
-                              locations.any(
-                                (location) =>
-                                    location.id ==
-                                    controller.selectedLocationId.value,
-                              )
-                              ? controller.selectedLocationId.value
-                              : null;
-
-                          return DropdownButtonFormField<int>(
-                            key: ValueKey(
-                              'location-${controller.selectedSectionId.value}-'
-                              '$selectedId-${locations.length}',
-                            ),
-                            initialValue: selectedId,
-                            decoration: InputDecoration(
-                              labelText: 'Location',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                            items: locations.map((location) {
-                              return DropdownMenuItem<int>(
-                                value: location.id,
-                                child: Text(location.name),
-                              );
-                            }).toList(),
-                            onChanged:
-                                controller.selectedSectionId.value == null
-                                ? null
-                                : (value) {
-                                    controller.selectedLocationId.value = value;
-
-                                    // Reset dependent selection
-                                    controller.selectedPositionId.value = null;
-
-                                    controller.positionsController
-                                        .clearPositions();
-
-                                    if (value != null) {
-                                      controller.positionsController
-                                          .getAllPositions(locationId: value);
-                                    }
-                                  },
-                          );
-                        }),
-
-                        const SizedBox(height: 15),
-
-                        // POSITION
-                        Obx(() {
-                          final positions =
-                              controller.positionsController.positions;
-
-                          final selectedId =
-                              positions.any(
-                                (position) =>
-                                    position.id ==
-                                    controller.selectedPositionId.value,
-                              )
-                              ? controller.selectedPositionId.value
-                              : null;
-
-                          return DropdownButtonFormField<int>(
-                            key: ValueKey(
-                              'position-${controller.selectedLocationId.value}-'
-                              '$selectedId-${positions.length}',
-                            ),
-                            initialValue: selectedId,
-                            decoration: InputDecoration(
-                              labelText: 'Position',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                            items: positions.map((position) {
-                              return DropdownMenuItem<int>(
-                                value: position.id,
-                                child: Text(position.name),
-                              );
-                            }).toList(),
-                            onChanged:
-                                controller.selectedLocationId.value == null
-                                ? null
-                                : (value) {
-                                    controller.selectedPositionId.value = value;
-                                  },
-                          );
-                        }),
-
-                        const SizedBox(height: 15),
-
-                        // IS ACTIVE
-                        Obx(
-                          () => Row(
-                            children: [
-                              Checkbox(
-                                value: controller.isActive.value,
+                            return SizedBox(
+                              height: 50,
+                              child: DropdownButtonFormField<int>(
+                                key: ValueKey(
+                                  'section-$selectedId-${sections.length}',
+                                ),
+                                initialValue: selectedId,
+                                decoration: InputDecoration(
+                                  labelText: 'Section',
+                                  contentPadding: const EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                    vertical: 10,
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                ),
+                                items: sections.map((section) {
+                                  return DropdownMenuItem<int>(
+                                    value: section.id,
+                                    child: Text(section.name),
+                                  );
+                                }).toList(),
                                 onChanged: (value) {
-                                  controller.isActive.value = value ?? false;
+                                  controller.selectedSectionId.value = value;
+
+                                  // Reset dependent selections
+                                  controller.selectedLocationId.value = null;
+                                  controller.selectedPositionId.value = null;
+
+                                  // Clear dependent options
+                                  controller.locationsController
+                                      .clearLocations();
+                                  controller.positionsController
+                                      .clearPositions();
+
+                                  if (value != null) {
+                                    controller.locationsController
+                                        .getAllLocations(sectionId: value);
+                                  }
                                 },
                               ),
-                              const Text('Is Active'),
+                            );
+                          }),
+
+                          const SizedBox(height: 15),
+
+                          // LOCATION
+                          Obx(() {
+                            final locations =
+                                controller.locationsController.locations;
+
+                            final selectedId =
+                                locations.any(
+                                  (location) =>
+                                      location.id ==
+                                      controller.selectedLocationId.value,
+                                )
+                                ? controller.selectedLocationId.value
+                                : null;
+
+                            return SizedBox(
+                              height: 50,
+                              child: DropdownButtonFormField<int>(
+                                key: ValueKey(
+                                  'location-${controller.selectedSectionId.value}-'
+                                  '$selectedId-${locations.length}',
+                                ),
+                                initialValue: selectedId,
+                                decoration: InputDecoration(
+                                  labelText: 'Location',
+                                  contentPadding: const EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                    vertical: 10,
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                ),
+                                items: locations.map((location) {
+                                  return DropdownMenuItem<int>(
+                                    value: location.id,
+                                    child: Text(location.name),
+                                  );
+                                }).toList(),
+                                onChanged:
+                                    controller.selectedSectionId.value == null
+                                    ? null
+                                    : (value) {
+                                        controller.selectedLocationId.value =
+                                            value;
+
+                                        // Reset dependent selection
+                                        controller.selectedPositionId.value =
+                                            null;
+
+                                        controller.positionsController
+                                            .clearPositions();
+
+                                        if (value != null) {
+                                          controller.positionsController
+                                              .getAllPositions(
+                                                locationId: value,
+                                              );
+                                        }
+                                      },
+                              ),
+                            );
+                          }),
+
+                          const SizedBox(height: 15),
+
+                          // POSITION
+                          Obx(() {
+                            final positions =
+                                controller.positionsController.positions;
+
+                            final selectedId =
+                                positions.any(
+                                  (position) =>
+                                      position.id ==
+                                      controller.selectedPositionId.value,
+                                )
+                                ? controller.selectedPositionId.value
+                                : null;
+
+                            return SizedBox(
+                              height: 50,
+                              child: DropdownButtonFormField<int>(
+                                key: ValueKey(
+                                  'position-${controller.selectedLocationId.value}-'
+                                  '$selectedId-${positions.length}',
+                                ),
+                                initialValue: selectedId,
+                                decoration: InputDecoration(
+                                  labelText: 'Position',
+                                  contentPadding: const EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                    vertical: 10,
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                ),
+                                items: positions.map((position) {
+                                  return DropdownMenuItem<int>(
+                                    value: position.id,
+                                    child: Text(position.name),
+                                  );
+                                }).toList(),
+                                onChanged:
+                                    controller.selectedLocationId.value == null
+                                    ? null
+                                    : (value) {
+                                        controller.selectedPositionId.value =
+                                            value;
+                                      },
+                              ),
+                            );
+                          }),
+
+                          const SizedBox(height: 15),
+
+                          // IS ACTIVE
+                          Obx(
+                            () => Row(
+                              children: [
+                                Checkbox(
+                                  value: controller.isActive.value,
+                                  onChanged: (value) {
+                                    controller.isActive.value = value ?? false;
+                                  },
+                                  activeColor: AppColors.DJR,
+                                  checkColor: Colors.white,
+                                  materialTapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
+                                  visualDensity: const VisualDensity(
+                                    horizontal: -4,
+                                    vertical: -4,
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                const Text('Is Active'),
+                              ],
+                            ),
+                          ),
+
+                          // Clear Filter
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              // Addd icon button
+                              TextButton(
+                                style: TextButton.styleFrom(
+                                  foregroundColor: Colors.white,
+                                  backgroundColor: AppColors.DJR,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                                child: const Text('Clear Filter'),
+                                onPressed: () {
+                                  controller.clearFilter();
+                                },
+                              ),
                             ],
                           ),
-                        ),
-
-                        // Clear Filter
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            // Addd icon button
-                            TextButton(
-                              style: TextButton.styleFrom(
-                                foregroundColor: Colors.white,
-                                backgroundColor: AppColors.DJR,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                              child: const Text('Clear Filter'),
-                              onPressed: () {
-                                controller.clearFilter();
-                              },
-                            ),
-                          ],
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   )
                 : Container(),

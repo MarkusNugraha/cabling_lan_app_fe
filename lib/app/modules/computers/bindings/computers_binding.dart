@@ -4,6 +4,7 @@ import '../controllers/computers_controller.dart';
 import '../../sections/controllers/sections_controller.dart';
 import '../../locations/controllers/locations_controller.dart';
 import '../../positions/controllers/positions_controller.dart';
+import '../../device_categories/controllers/device_categories_controller.dart';
 
 class ComputersBinding extends Bindings {
   @override
@@ -11,6 +12,7 @@ class ComputersBinding extends Bindings {
     Get.put(SectionsController());
     Get.put(LocationsController());
     Get.put(PositionsController());
+    Get.put(DeviceCategoriesController());
     Get.put(ComputersController());
   }
 }

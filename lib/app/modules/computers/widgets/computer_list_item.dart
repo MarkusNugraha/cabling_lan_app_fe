@@ -16,8 +16,8 @@ class ComputerListItem extends StatelessWidget {
     return InkWell(
       onTap: () {
         Get.toNamed(
-          Routes.ADD_EDIT_USERS,
-          arguments: {'formMode': FormMode.VIEW, 'userId': computer.id},
+          Routes.ADD_EDIT_COMPUTERS,
+          arguments: {'formMode': FormMode.VIEW, 'id': computer.id},
         );
       },
       child: Container(

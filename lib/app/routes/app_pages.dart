@@ -1,7 +1,11 @@
 import 'package:get/get.dart';
 
+import '../modules/computers/bindings/computers_add_edit_binding.dart';
 import '../modules/computers/bindings/computers_binding.dart';
 import '../modules/computers/views/computers_view.dart';
+import '../modules/computers/views/view_add_edit_computers_view.dart';
+import '../modules/device_categories/bindings/device_categories_binding.dart';
+import '../modules/device_categories/views/device_categories_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/locations/bindings/locations_binding.dart';
@@ -53,6 +57,16 @@ class AppPages {
       name: _Paths.COMPUTERS,
       page: () => ComputersView(),
       binding: ComputersBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_EDIT_COMPUTERS,
+      page: () => ViewAddEditComputersView(),
+      binding: ComputersAddEditBinding(),
+    ),
+    GetPage(
+      name: _Paths.DEVICE_CATEGORIES,
+      page: () => const DeviceCategoriesView(),
+      binding: DeviceCategoriesBinding(),
     ),
   ];
 }

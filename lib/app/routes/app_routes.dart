@@ -9,12 +9,14 @@ abstract class Routes {
   static const ADD_EDIT_USERS = _Paths.ADD_EDIT_USERS;
   static const DEVICES = _Paths.DEVICES;
   static const COMPUTERS = _Paths.COMPUTERS;
+  static const ADD_EDIT_COMPUTERS = _Paths.ADD_EDIT_COMPUTERS;
   static const SWITCHES = _Paths.SWITCHES;
   static const VOIPS = _Paths.VOIPS;
   static const HIERARCHY = _Paths.HIERARCHY;
   static const SECTIONS = _Paths.SECTIONS;
   static const LOCATIONS = _Paths.LOCATIONS;
   static const POSITIONS = _Paths.POSITIONS;
+  static const DEVICE_CATEGORIES = _Paths.DEVICE_CATEGORIES;
 }
 
 abstract class _Paths {
@@ -25,10 +27,12 @@ abstract class _Paths {
   static const ADD_EDIT_USERS = '/add-edit-users';
   static const DEVICES = '/devices';
   static const COMPUTERS = '/computers';
+  static const ADD_EDIT_COMPUTERS = '/add-edit-computers';
   static const SWITCHES = '/switches';
   static const VOIPS = '/voips';
   static const HIERARCHY = '/hierarchy';
   static const SECTIONS = '/sections';
   static const LOCATIONS = '/locations';
   static const POSITIONS = '/positions';
+  static const DEVICE_CATEGORIES = '/device-categories';
 }

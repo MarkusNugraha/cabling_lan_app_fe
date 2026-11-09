@@ -13,7 +13,6 @@ class ComputerProvider extends GetConnect {
       params['is_active'] = isActive ? '1' : '0';
     }
 
-    // print(params);
     return get(
       '${ApiConfig.baseUrl}/computer',
       query: params,

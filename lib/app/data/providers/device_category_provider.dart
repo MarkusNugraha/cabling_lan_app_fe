@@ -13,7 +13,6 @@ class DeviceCategoryProvider extends GetConnect {
       params['is_active'] = isActive ? '1' : '0';
     }
 
-    // print(params);
     return get(
       '${ApiConfig.baseUrl}/device_category',
       query: params,

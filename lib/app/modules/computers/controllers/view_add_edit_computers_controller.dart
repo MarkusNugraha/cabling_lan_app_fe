@@ -27,8 +27,6 @@ class ViewAddEditComputersController extends GetxController {
   late TextEditingController idAssetController = TextEditingController();
   late TextEditingController pcNameController = TextEditingController();
   late TextEditingController serialNumberController = TextEditingController();
-  // late TextEditingController deviceCategoryController = TextEditingController();
-  // late TextEditingController positionController = TextEditingController();
   final selectedSectionId = RxnInt();
   final selectedLocationId = RxnInt();
   final selectedPositionId = RxnInt();
@@ -65,8 +63,6 @@ class ViewAddEditComputersController extends GetxController {
     idAssetController = TextEditingController();
     pcNameController = TextEditingController();
     serialNumberController = TextEditingController();
-    // deviceCategoryController = TextEditingController();
-    // positionController = TextEditingController();
 
     // Computer
     hostnameController = TextEditingController();
@@ -168,9 +164,6 @@ class ViewAddEditComputersController extends GetxController {
       idAssetController.text = computer!.deviceSummary!.id.toString();
       pcNameController.text = computer!.deviceSummary!.pcName;
       serialNumberController.text = computer!.deviceSummary!.serialNumber;
-      // deviceCategoryController.text =
-      //     computer!.deviceSummary!.deviceCategory.name;
-      // positionController.text = computer!.deviceSummary!.position.name;
       selectedSectionId.value = computer!.deviceSummary!.section.id;
       selectedLocationId.value = computer!.deviceSummary!.location.id;
       selectedPositionId.value = computer!.deviceSummary!.position.id;
@@ -204,7 +197,6 @@ class ViewAddEditComputersController extends GetxController {
       // Device
       pcName: pcNameController.text,
       serialNumber: serialNumberController.text,
-      // deviceCategoryId: int.parse(deviceCategoryController.text),
       deviceCategoryId: selectedDeviceCategoryId.value!,
       positionId: selectedPositionId.value!,
 
@@ -246,7 +238,6 @@ class ViewAddEditComputersController extends GetxController {
       idAsset: int.parse(idAssetController.text),
       pcName: pcNameController.text,
       serialNumber: serialNumberController.text,
-      // deviceCategoryId: int.parse(deviceCategoryController.text),
       deviceCategoryId: selectedDeviceCategoryId.value!,
       positionId: selectedPositionId.value!,
 
@@ -282,8 +273,6 @@ class ViewAddEditComputersController extends GetxController {
     idAssetController.dispose();
     pcNameController.dispose();
     serialNumberController.dispose();
-    // deviceCategoryController.dispose();
-    // positionController.dispose();
 
     hostnameController.dispose();
     cpuController.dispose();

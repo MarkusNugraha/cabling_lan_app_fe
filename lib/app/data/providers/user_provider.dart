@@ -21,7 +21,6 @@ class UserProvider extends GetConnect {
       params['is_active'] = isActive ? '1' : '0';
     }
 
-    // print(params);
     return get(
       '${ApiConfig.baseUrl}/user',
       query: params,
